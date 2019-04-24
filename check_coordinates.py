@@ -42,7 +42,7 @@ def isInside(self, border, target):
 
 @app.route('/check/<lat>/<lng>',methods=['get'])
 def check(lat,lng):
-   sql = "Select * from geo"
+   sql = "Select * from geo;"
    cur.execute(sql)
    for i in cur.fetchall():
     fli=[]
