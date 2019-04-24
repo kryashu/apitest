@@ -41,7 +41,7 @@ def isInside(self, border, target):
  return False
 
 @app.route('/check/<lat>/<lng>',methods=['get'])
-def get_using_postgres(lat,lng):
+def check(lat,lng):
    sql = "Select * from geo"
    cur.execute(sql)
    for i in cur.fetchall():
