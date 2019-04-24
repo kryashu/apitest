@@ -29,12 +29,12 @@ def post_location():
         conn.commit()
         return "Request Approved"
     
-@app.route('/get_using_postgres/<lat>/<lng>',methods=['get'])
-def get_using_postgres(lat,lng):
+@app.route('/get_using_postgres/<lat>/<lng>/<r>',methods=['get'])
+def get_using_postgres(lat,lng,r):
     cur.execute('create extension cube;')
     cur.execute('create extension earthdistance;')
-    sql = "Select key from main where (point(%s,%s) <@> point(cast(longitude as DOUBLE PRECISION),cast(latitude as DOUBLE PRECISION)))<= 5;"
-    cur.execute(sql,[lng,lat])
+    sql = "Select key from main where (point(%s,%s) <@> point(cast(longitude as DOUBLE PRECISION),cast(latitude as DOUBLE PRECISION)))<= %d;"
+    cur.execute(sql,[lng,lat,r])
     data = json.dumps(cur.fetchall())
     return data
 if __name__ == '__main__':
